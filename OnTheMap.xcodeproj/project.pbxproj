@@ -13,6 +13,7 @@
 		1E71C70F2329BD010034A1E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E71C70E2329BD010034A1E6 /* Assets.xcassets */; };
 		1E71C7122329BD010034A1E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E71C7102329BD010034A1E6 /* LaunchScreen.storyboard */; };
 		1E71C71E2329BE250034A1E6 /* ONTMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71C71D2329BE250034A1E6 /* ONTMClient.swift */; };
+		1E71C722232A8C540034A1E6 /* StudentLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71C721232A8C540034A1E6 /* StudentLocationRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1E71C7112329BD010034A1E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E71C7132329BD010034A1E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E71C71D2329BE250034A1E6 /* ONTMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ONTMClient.swift; sourceTree = "<group>"; };
+		1E71C721232A8C540034A1E6 /* StudentLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		1E71C71F2329BE440034A1E6 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				1E71C721232A8C540034A1E6 /* StudentLocationRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E71C722232A8C540034A1E6 /* StudentLocationRequest.swift in Sources */,
 				1E71C70A2329BCFF0034A1E6 /* ViewController.swift in Sources */,
 				1E71C7082329BCFF0034A1E6 /* AppDelegate.swift in Sources */,
 				1E71C71E2329BE250034A1E6 /* ONTMClient.swift in Sources */,
