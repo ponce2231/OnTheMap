@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         ONTMClient.postStudentLocation()
-
+        ONTMClient.putStudentLocation()
         ONTMClient.getStudentsLocations()
     }
     

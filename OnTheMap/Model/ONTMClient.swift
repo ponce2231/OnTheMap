@@ -14,12 +14,12 @@ class ONTMClient {
         static let base = "https://onthemap-api.udacity.com/v1/StudentLocation"
         
         case getStudentsLocation
-        
+        case puttingStudentLocation(String)
         
         var urlString:String {
             switch self {
             case .getStudentsLocation: return Endpoints.base + "?limit=5"
-
+            case .puttingStudentLocation(let objectId): return Endpoints.base + "/\(objectId)"
             }
 
         }
@@ -61,6 +61,22 @@ class ONTMClient {
                 return
             }
             print(String(data: data!, encoding: .utf8)!)
+        }
+        dataTask.resume()
+    }
+    
+    class func putStudentLocation(){
+        var request = URLRequest(url: Endpoints.puttingStudentLocation("bm7shks74d6btkc0vslg").url)
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+            if error != nil{
+                return
+            }
+           print(String(data: data!, encoding: .utf8)!)
         }
         dataTask.resume()
     }
