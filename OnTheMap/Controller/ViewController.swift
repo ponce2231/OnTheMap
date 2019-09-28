@@ -13,12 +13,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        ONTMClient.getAllStudentsLocations(completionHandler:getAllStudentsHandler(succes:error:))
+        ONTMClient.postStudentLocation()
+
+        ONTMClient.getStudentsLocations()
     }
     
-    func getAllStudentsHandler(succes: Bool, error: Error?){
-        if succes{
+    func getStudentsHandler(success: Bool, error: Error?){
+        if success{
             print("success")
+        }else{
+            print(error!)
+        }
+    }
+    func postStudentLocationHandler(success: Bool, error: Error?){
+        if success{
+            print("success 2")
         }else{
             print(error!)
         }
