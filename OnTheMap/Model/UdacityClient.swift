@@ -26,13 +26,23 @@ class UdacityClient {
     }
     //https://www.youtube.com/watch?v=YY3bTxgxWss
     class func postLoginSession(userName:String,password:String, completionHandler: @escaping (Bool,Error?) -> Void){
+        
         var request = URLRequest(url: Endpoints.login.url)
+        let credentials = ["udacity":["username":userName, "password":password]] as [String:AnyObject]
+        
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         // encoding a JSON body from a string, can also use a Codable struct
-                                                        // useremail = christopher@gmail.com
-        request.httpBody = "{\"udacity\": {\"username\": \"\(userName)\", \"password\": \"\(password)\"}}".data(using: .utf8)
+        do{
+            let body = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
+            request.httpBody = body
+            completionHandler(true,nil)
+        }catch{
+            completionHandler(false,error)
+        }
+        print(credentials["udacity"])
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
             guard let data = data else{

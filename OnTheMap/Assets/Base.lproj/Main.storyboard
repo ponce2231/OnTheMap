@@ -184,7 +184,7 @@
                 <navigationController modalPresentationStyle="overFullScreen" id="dIi-xJ-FqC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="icon_listview-deselected" id="dct-Yb-2hO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0sW-Q8-tPf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
