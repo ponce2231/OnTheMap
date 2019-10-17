@@ -28,22 +28,31 @@ class ONTMClient {
         }
     }
     
-    class func getStudentsLocations(){
+    class func getStudentsLocations(completionHandler: @escaping (Bool, Error?) -> Void){
         
         
         let dataTask = URLSession.shared.dataTask(with: Endpoints.getStudentsLocation.url) { data, response, error in
-
+           
+            guard let data = data else{
+                completionHandler(false, error)
+                return
+            }
+            
             if error != nil {
                 return
             }
-//            let decoder = JSONDecoder()
-//            do{
-//                let responseObject = try decoder.decode(StudentLocationRequest.self, from: data)
-//                completionHandler(true,nil)
-//            }catch{
-//                completionHandler(false,error)
-//            }
-            print(String(data: data!, encoding: .utf8)!)
+            
+            do{
+                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+                                                //Results
+                if let firstName = responseObject["firstName"] as? String{
+                    print(firstName)
+                    
+                }
+            }catch{
+                completionHandler(false,error)
+            }
+            print(String(data: data, encoding: .utf8)!)
         }
         dataTask.resume()
         

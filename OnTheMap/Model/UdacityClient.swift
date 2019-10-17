@@ -24,9 +24,8 @@ class UdacityClient {
             return URL(string: urlString)!
         }
     }
-    //https://www.youtube.com/watch?v=YY3bTxgxWss
     class func postLoginSession(userName:String,password:String, completionHandler: @escaping (Bool,Error?) -> Void){
-        
+        //var declarations
         var request = URLRequest(url: Endpoints.login.url)
         let credentials = ["udacity":["username":userName, "password":password]] as [String:AnyObject]
         
@@ -34,34 +33,41 @@ class UdacityClient {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        // encoding a JSON body from a string, can also use a Codable struct
+        // convert body into a dictionary
         do{
             let body = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
             request.httpBody = body
-            completionHandler(true,nil)
         }catch{
             completionHandler(false,error)
         }
-        print(credentials["udacity"])
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
+             // remember to delete it
+            print("horray")
             guard let data = data else{
+                
                 return
             }
-            //Range(5..<data!.count)
+            // remember to delete it
+            print("halleluya")
             let range = (5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
             do{
 
                 let dataObject = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as? [String:AnyObject]
+                print(dataObject)
                 if let session = dataObject?["session"] as? [String:AnyObject]{
                     print(session)
-                    if let sessionID = dataObject?["id"] as? String{
+                    if let sessionID = session["id"] as? String{
+                         // remember to delete it
+                        print("hamburguer")
                         print(sessionID)
                         print(String(data: newData, encoding: .utf8)!)
+                        DispatchQueue.main.async {
+                            completionHandler(true,nil)
+                        }
                     }
                 }else{
-                    print(dataObject?["error"])
                     completionHandler(false, error)
                     return
                 }

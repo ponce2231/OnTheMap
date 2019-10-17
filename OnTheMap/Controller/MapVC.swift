@@ -14,7 +14,16 @@ class MapVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
     }
+    func getLocationHandler(success:Bool, error: Error?) {
+        if success{
+            print("got locations")
+        }else{
+            print(error?.localizedDescription)
+        }
+    }
+    
     
 
     /*

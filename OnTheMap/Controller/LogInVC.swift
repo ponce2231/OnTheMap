@@ -24,7 +24,7 @@ class LogInVC: UIViewController {
     }
     
     func handleLogin(success:Bool, error:Error?){
-        if success == true{
+        if success{
             performSegue(withIdentifier: "completeLogin", sender: nil)
         }else{
             DispatchQueue.main.async {
