@@ -5,25 +5,53 @@
 //  Created by Christopher Ponce Mendez on 10/8/19.
 //  Copyright © 2019 none. All rights reserved.
 //
-
 import Foundation
 
-struct SessionResponse: Codable{
+// MARK: - SessionResponse
+struct SessionResponse: Codable {
     let account: Account
     let session: Session
-    enum CodingKeys: String, CodingKey {
-        case account
-        case session
-    }
 }
 
+// MARK: - Account
 struct Account: Codable {
-    let registered:Bool
-    let key: Int
+    let registered: Bool
+    let key: String
 }
 
-struct Session:Codable {
-    let id: String
-    let expiration: String
-
+// MARK: - Session
+struct Session: Codable {
+    let id, expiration: String
 }
+
+
+//struct SessionResponse: Codable{
+//    let account: Account
+//    let session: Session
+//
+//    enum CodingKeys: String, CodingKey {
+//        case account
+//        case session
+//    }
+//}
+//
+//struct Account: Codable {
+//    let registered:Bool
+//    let key: Int
+//}
+//
+//struct Session:Codable {
+//    let id: String
+//    let expiration: String
+//
+//}
+
+//extension SessionResponse{
+//    struct CodingData:Codable {
+//        struct Container: Codable {
+//            let account:String
+//            let session:String
+//        }
+//        var accountData: Container
+//    }
+//}

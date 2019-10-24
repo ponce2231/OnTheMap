@@ -14,7 +14,18 @@ class MapVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
+       
+        ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
+         ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
+        
+    }
+    
+    func postLocationHandler(success:Bool, error: Error?) {
+        if success{
+            print("kiwii")
+        }else{
+            print(error?.localizedDescription)
+        }
     }
     func getLocationHandler(success:Bool, error: Error?) {
         if success{

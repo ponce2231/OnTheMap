@@ -24,6 +24,7 @@ class UdacityClient {
             return URL(string: urlString)!
         }
     }
+   
     class func postLoginSession(userName:String,password:String, completionHandler: @escaping (Bool,Error?) -> Void){
         //var declarations
         var request = URLRequest(url: Endpoints.login.url)
@@ -42,27 +43,22 @@ class UdacityClient {
         }
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-             // remember to delete it
-            print("horray")
             guard let data = data else{
                 
                 return
             }
-            // remember to delete it
-            print("halleluya")
             let range = (5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
             do{
 
                 let dataObject = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as? [String:AnyObject]
-                print(dataObject)
+//                print(dataObject)
                 if let session = dataObject?["session"] as? [String:AnyObject]{
                     print(session)
                     if let sessionID = session["id"] as? String{
-                         // remember to delete it
-                        print("hamburguer")
-                        print(sessionID)
-                        print(String(data: newData, encoding: .utf8)!)
+                         
+//                        print(sessionID)
+//                        print(String(data: newData, encoding: .utf8)!)
                         DispatchQueue.main.async {
                             completionHandler(true,nil)
                         }

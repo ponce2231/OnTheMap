@@ -37,48 +37,101 @@ class ONTMClient {
                 completionHandler(false, error)
                 return
             }
-            
             if error != nil {
-                return
-            }
-            
+               return
+           }
             do{
-                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-                                                //Results
-                if let firstName = responseObject["firstName"] as? String{
-                    print(firstName)
-                    
+                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
+                
+//                print(responseObject)
+//                print("avocado")
+                if let results = responseObject?["results"] as? [[String:AnyObject]]{
+//                    print(results)
+//                    print("apple")
+                    if results.count > 0{
+                        for item in results{
+                            print(item["firstName"])
+                        }
+                        completionHandler(true,nil)
+                    }
+                }else{
+                    completionHandler(false,error)
+                    print(error)
+                    return
                 }
             }catch{
                 completionHandler(false,error)
+                print(error)
             }
-            print(String(data: data, encoding: .utf8)!)
         }
         dataTask.resume()
         
     }
-    
-    class func postStudentLocation(){
+     
+    class func postStudentLocation(firstName: String, lastName:String, country: String, linkedInString: String, xAxis: Double, yAxis:Double, completionHandler: @escaping (Bool, Error?) -> Void){
+
+        
         var request = URLRequest(url: URL(string: Endpoints.base)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
+        
+        let userInput = ["firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
+        
+        do{
+            let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)
+            request.httpBody = body
+            completionHandler(true, nil)
+        }catch{
+            completionHandler(false, error)
+        }
+//        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
         let session = URLSession.shared
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in
+            guard let data = data else{
+                completionHandler(false,error)
+                return
+            }
             if error != nil {
                 return
             }
-            print(String(data: data!, encoding: .utf8)!)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do{
+                let responseObject = try decoder.decode(SessionResponse.self, from: data)
+//                let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
+                let accountData = responseObject.account.key
+                
+                print(accountData)
+                print(responseObject)
+                print("hanabanana")
+                
+                completionHandler(true,nil)
+            }catch{
+                completionHandler(false,error)
+            }
+            
+            
+            print(String(data: data, encoding: .utf8)!)
         }
         dataTask.resume()
     }
     
-    class func putStudentLocation(){
+    class func putStudentLocation(firstName: String, lastName:String, country: String, linkedInString: String, xAxis: Double, yAxis:Double, completionHandler: @escaping (Bool, Error?) -> Void){
         var request = URLRequest(url: Endpoints.puttingStudentLocation("bm7shks74d6btkc0vslg").url)
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
+        let userInput = ["firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
+//        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
+        
+        do{
+            let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)
+            request.httpBody = body
+            completionHandler(true,nil)
+            print(body)
+        }catch{
+            completionHandler(false,error)
+        }
         let session = URLSession.shared
         
         let dataTask = session.dataTask(with: request) { (data, response, error) in

@@ -9,7 +9,7 @@
 //import Foundation
 //// https://stackoverflow.com/questions/46597624/can-swift-convert-a-class-struct-data-into-dictionary
 //
-struct StudentLocation: Decodable {
+struct StudentLocation: Codable {
     let uniqueKey: Int
     let firstName: String
     let lastName: String
@@ -27,10 +27,4 @@ struct StudentLocation: Decodable {
         case latitude
         case longitude
     }
-//    var StudentLocationDictionary: [String : AnyObject]{
-//        return ["uniqueKey": uniqueKey,"firstName": firstName,"lastName": lastName,
-//                "mapString": mapString,"mediaURL": mediaURL,"latitude": latitude,
-//                "longitude": longitude]
-//    }
-//    
 }
