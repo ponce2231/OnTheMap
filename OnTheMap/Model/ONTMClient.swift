@@ -75,8 +75,8 @@ class ONTMClient {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let userInput = ["firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
-        
+        let userInput = ["uniqueKey": SessionResponse.sessionInstance?.account.key,"firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
+
         do{
             let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)
             request.httpBody = body
@@ -100,11 +100,11 @@ class ONTMClient {
             do{
                 let responseObject = try decoder.decode(SessionResponse.self, from: data)
 //                let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
-                let accountData = responseObject.account.key
                 
-                print(accountData)
+                
+                //  print(accountData)
                 print(responseObject)
-                print("hanabanana")
+                print(SessionResponse.sessionInstance?.account.key)
                 
                 completionHandler(true,nil)
             }catch{

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 class UdacityClient {
     
     enum Endpoints {
@@ -33,7 +34,7 @@ class UdacityClient {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+       //needs more work
         // convert body into a dictionary
         do{
             let body = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
@@ -50,24 +51,21 @@ class UdacityClient {
             let range = (5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
             do{
+                //MARK: parsing json
+                let decoder = JSONDecoder()
+                let sessionResponse = try decoder.decode(SessionResponse.self, from: newData)
+                //MARK: Account Validation
 
-                let dataObject = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as? [String:AnyObject]
-//                print(dataObject)
-                if let session = dataObject?["session"] as? [String:AnyObject]{
-                    print(session)
-                    if let sessionID = session["id"] as? String{
-                         
-//                        print(sessionID)
-//                        print(String(data: newData, encoding: .utf8)!)
-                        DispatchQueue.main.async {
-                            completionHandler(true,nil)
-                        }
+                if sessionResponse.account.registered{
+                    print(sessionResponse)
+                    print(sessionResponse.account.key)
+                    print("watermelon")
+                    DispatchQueue.main.async {
+                        completionHandler(true,nil)
                     }
                 }else{
-                    completionHandler(false, error)
-                    return
+                    completionHandler(false,error)
                 }
-                    
             }catch{
                 completionHandler(false, error)
                 print(error.localizedDescription)
@@ -107,7 +105,7 @@ class UdacityClient {
         task.resume()
     }
     
-    class func getPublicUserData(){
+    class func getPublicUserData(completionHandler: @escaping (Bool, Error?) -> Void){
                                                                                             //<userId = 3903878747>
         let request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/users/3903878747")!)
         let session = URLSession.shared
@@ -115,10 +113,16 @@ class UdacityClient {
           if error != nil { // Handle error...
               return
           }
+            guard let data = data else{
+                completionHandler(false, error)
+                return
+                
+            }
             //Range(5..<data!.count)
-          let range = (5..<data!.count)
-          let newData = data?.subdata(in: range) /* subset response data! */
-          print(String(data: newData!, encoding: .utf8)!)
+          let range = (5..<data.count)
+          let newData = data.subdata(in: range) /* subset response data! */
+            
+          print(String(data: newData, encoding: .utf8)!)
         }
         task.resume()
     }

@@ -7,14 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, MKMapViewDelegate{
 
+    @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-       
+        super.viewDidLoad()       
         ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
          ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
         
@@ -34,17 +33,4 @@ class MapVC: UIViewController {
             print(error?.localizedDescription)
         }
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
