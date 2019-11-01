@@ -7,13 +7,12 @@
 //
 
 import Foundation
-
 struct PostLocationResponse: Codable {
     let createdAt: String
-    let objectId: String
+    let objectID: String
     
     enum CodingKeys: String,CodingKey {
         case createdAt
-        case objectId
+        case objectID = "objectId"
     }
 }

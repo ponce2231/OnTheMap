@@ -30,9 +30,9 @@ class LogInVC: UIViewController {
             DispatchQueue.main.async {
                 self.showLoginFailure(message: error?.localizedDescription ?? "" )
             }
-           
         }
     }
+    //MARK: Shows alert when credentials are not correct
     func showLoginFailure(message: String) {
         let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

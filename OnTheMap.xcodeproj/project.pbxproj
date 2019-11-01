@@ -21,7 +21,6 @@
 		1EBE7F46234D77CC0049AE24 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE7F45234D77CC0049AE24 /* SessionResponse.swift */; };
 		1EBE7F48234E9C520049AE24 /* PostLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE7F47234E9C520049AE24 /* PostLocationResponse.swift */; };
 		1EBE7F4A234E9D070049AE24 /* PutStudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE7F49234E9D070049AE24 /* PutStudentLocationResponse.swift */; };
-		1EBE7F4C23552B2E0049AE24 /* CredentialsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE7F4B23552B2E0049AE24 /* CredentialsRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		1EBE7F45234D77CC0049AE24 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
 		1EBE7F47234E9C520049AE24 /* PostLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationResponse.swift; sourceTree = "<group>"; };
 		1EBE7F49234E9D070049AE24 /* PutStudentLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutStudentLocationResponse.swift; sourceTree = "<group>"; };
-		1EBE7F4B23552B2E0049AE24 /* CredentialsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				1EBE7F4323480CEF0049AE24 /* StudentLocation.swift */,
-				1EBE7F4B23552B2E0049AE24 /* CredentialsRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -215,7 +212,6 @@
 			files = (
 				1EBE7F4A234E9D070049AE24 /* PutStudentLocationResponse.swift in Sources */,
 				1E4E6F1023402A0400CE19AC /* LocationsListTableVC.swift in Sources */,
-				1EBE7F4C23552B2E0049AE24 /* CredentialsRequest.swift in Sources */,
 				1E4E6F0E234024C300CE19AC /* UdacityClient.swift in Sources */,
 				1EBE7F4423480CEF0049AE24 /* StudentLocation.swift in Sources */,
 				1E71C70A2329BCFF0034A1E6 /* LogInVC.swift in Sources */,

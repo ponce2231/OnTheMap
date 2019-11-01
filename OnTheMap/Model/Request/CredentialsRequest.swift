@@ -6,14 +6,14 @@
 //  Copyright © 2019 none. All rights reserved.
 //
 
-import Foundation
-
-struct CredentialsRequest:Codable {
-    let userName:String
-    let password:String
-    
-    enum CodingKeys: String, CodingKey {
-        case userName
-        case password
-    }
-}
+//import Foundation
+//
+//struct CredentialsRequest:Codable {
+//    let userName:String
+//    let password:String
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case userName
+//        case password
+//    }
+//}

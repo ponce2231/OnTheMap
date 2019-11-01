@@ -27,7 +27,7 @@ class ONTMClient {
             return URL(string: urlString)!
         }
     }
-    
+    //MARK: Gets student location
     class func getStudentsLocations(completionHandler: @escaping (Bool, Error?) -> Void){
         
         
@@ -42,12 +42,8 @@ class ONTMClient {
            }
             do{
                 let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
-                
-//                print(responseObject)
-//                print("avocado")
                 if let results = responseObject?["results"] as? [[String:AnyObject]]{
-//                    print(results)
-//                    print("apple")
+                    
                     if results.count > 0{
                         for item in results{
                             print(item["firstName"])
@@ -67,16 +63,15 @@ class ONTMClient {
         dataTask.resume()
         
     }
-     
+     //MARK: post a student location on map
     class func postStudentLocation(firstName: String, lastName:String, country: String, linkedInString: String, xAxis: Double, yAxis:Double, completionHandler: @escaping (Bool, Error?) -> Void){
 
         
         var request = URLRequest(url: URL(string: Endpoints.base)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        // need to convert this to dictionary
         let userInput = ["uniqueKey": SessionResponse.sessionInstance?.account.key,"firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
-
         do{
             let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)
             request.httpBody = body
@@ -84,9 +79,9 @@ class ONTMClient {
         }catch{
             completionHandler(false, error)
         }
-//        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Chris\", \"lastName\": \"Ponce\",\"mapString\": \"San Juan, PR\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 18.465841, \"longitude\": -66.105871}".data(using: .utf8)
-        let session = URLSession.shared
         
+        //MARK: creating a datatask
+        let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else{
                 completionHandler(false,error)
@@ -95,17 +90,11 @@ class ONTMClient {
             if error != nil {
                 return
             }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
+          //MARK: parsing json response
             do{
-                let responseObject = try decoder.decode(SessionResponse.self, from: data)
-//                let responseObject = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String:AnyObject]
-                
-                
-                //  print(accountData)
+                let decoder = JSONDecoder()
+                let responseObject = try decoder.decode(PostLocationResponse.self, from: data)
                 print(responseObject)
-                print(SessionResponse.sessionInstance?.account.key)
-                
                 completionHandler(true,nil)
             }catch{
                 completionHandler(false,error)

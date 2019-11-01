@@ -8,19 +8,20 @@
 import Foundation
 
 // MARK: SessionResponse
+
 struct SessionResponse: Codable {
     static var sessionInstance: SessionResponse?
     let account: Account
     let session: Session
 }
 
-// MARK: Account
+
 struct Account: Codable {
     let registered: Bool
-    let key: String
+    var key: String
 }
 
-// MARK: Session
+
 struct Session: Codable {
     let id, expiration: String
 }

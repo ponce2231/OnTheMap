@@ -13,9 +13,11 @@ class MapVC: UIViewController, MKMapViewDelegate{
 
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
-        super.viewDidLoad()       
+        super.viewDidLoad()
+        ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
+        
         ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
-         ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
+         
         
     }
     

@@ -54,12 +54,10 @@ class UdacityClient {
                 //MARK: parsing json
                 let decoder = JSONDecoder()
                 let sessionResponse = try decoder.decode(SessionResponse.self, from: newData)
+                
+                SessionResponse.sessionInstance = sessionResponse
                 //MARK: Account Validation
-
                 if sessionResponse.account.registered{
-                    print(sessionResponse)
-                    print(sessionResponse.account.key)
-                    print("watermelon")
                     DispatchQueue.main.async {
                         completionHandler(true,nil)
                     }
