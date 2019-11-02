@@ -8,47 +8,22 @@
 
 import Foundation
 
+// MARK: - StudentLocation
 struct StudentLocation: Codable {
-    let results:[Result]
-    
- 
-}
-struct Result: Codable {
-       let uniqueKey: Int
-     let firstName: String
-     let lastName: String
-     let mapString: String
-     let mediaURL: String
-     let latitude: Double
-     let longitude: Double
-     
-     enum CodingKeys: String, CodingKey {
-         case uniqueKey
-         case firstName
-         case lastName
-         case mapString
-         case mediaURL
-         case latitude
-         case longitude
-     }
+    let results: [Result]
 }
 
-//struct StudentLocation: Codable {
-//    let uniqueKey: Int
-//    let firstName: String
-//    let lastName: String
-//    let mapString: String
-//    let mediaURL: String
-//    let latitude: Double
-//    let longitude: Double
-//
-//    enum CodingKeys: String, CodingKey {
-//        case uniqueKey
-//        case firstName
-//        case lastName
-//        case mapString
-//        case mediaURL
-//        case latitude
-//        case longitude
-//    }
-//}
+// MARK: - Result
+struct Result: Codable {
+    let createdAt, firstName, lastName: String
+    let latitude, longitude: Double
+    let mapString: String
+    let mediaURL: String
+    let objectID, uniqueKey, updatedAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case createdAt, firstName, lastName, latitude, longitude, mapString, mediaURL
+        case objectID = "objectId"
+        case uniqueKey, updatedAt
+    }
+}

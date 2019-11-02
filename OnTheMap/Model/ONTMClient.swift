@@ -41,20 +41,29 @@ class ONTMClient {
                return
            }
             do{
-                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
-                if let results = responseObject?["results"] as? [[String:AnyObject]]{
-                    
-                    if results.count > 0{
-                        for item in results{
-                            print(item["firstName"])
-                        }
-                        completionHandler(true,nil)
-                    }
-                }else{
-                    completionHandler(false,error)
-                    print(error)
-                    return
+                let decoder = JSONDecoder()
+                
+                let responseObject = try decoder.decode(StudentLocation.self, from: data)
+                //loop for array arround the responseObject
+                print(responseObject.results)
+                for items in responseObject.results{
+                    print(items.objectID)
                 }
+                
+//                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
+//                if let results = responseObject?["results"] as? [[String:AnyObject]]{
+//
+//                    if results.count > 0{
+//                        for item in results{
+//                            print(item["firstName"])
+//                        }
+//                        completionHandler(true,nil)
+//                    }
+//                }else{
+//                    completionHandler(false,error)
+//                    print(error)
+//                    return
+//                }
             }catch{
                 completionHandler(false,error)
                 print(error)
