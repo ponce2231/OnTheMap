@@ -17,8 +17,16 @@ class MapVC: UIViewController, MKMapViewDelegate{
         ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
         
         ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
+        ONTMClient.putStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: putLocationHandler(success:error:))
          
         
+    }
+    func putLocationHandler(success:Bool, error: Error?) {
+        if success{
+            print("strawberry")
+        }else{
+            print(error?.localizedDescription)
+        }
     }
     
     func postLocationHandler(success:Bool, error: Error?) {

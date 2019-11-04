@@ -9,8 +9,8 @@
 import Foundation
 struct PostLocationResponse: Codable {
     let createdAt: String
-    let objectID: String
-    
+    var objectID: String
+    static var postLocationInstance: PostLocationResponse?
     enum CodingKeys: String,CodingKey {
         case createdAt
         case objectID = "objectId"

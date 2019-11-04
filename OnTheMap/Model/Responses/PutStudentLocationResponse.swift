@@ -12,6 +12,6 @@ struct PutStudentLocationResponse:Codable {
     let updatedAt: String
     
     enum CodingKeys:String, CodingKey {
-        case updatedAt
+        case updatedAt = "updatedAt"
     }
 }

@@ -9,38 +9,48 @@
 import UIKit
 
 class LocationsListTableVC: UITableViewController {
-
+// store a list of locations
+// access it from both VC mapVC and tableVC
+// 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        _ = ONTMClient.getStudentsLocations(completionHandler: { (location, error) in
+            LocationsData.locations = location
+            self.tableView.reloadData()
+        })
+    
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return LocationsData.locations.count
     }
-
-    /*
+// pasar la informacion de los locations a la celda como en the movie manager
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+            
+        let locationData = LocationsData.locations[indexPath.row]
+        cell.textLabel?.text = locationData.results.
+         Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

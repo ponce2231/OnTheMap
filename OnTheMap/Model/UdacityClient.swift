@@ -34,8 +34,6 @@ class UdacityClient {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-       //needs more work
-        // convert body into a dictionary
         do{
             let body = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
             request.httpBody = body

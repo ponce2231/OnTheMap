@@ -27,14 +27,13 @@ class ONTMClient {
             return URL(string: urlString)!
         }
     }
+    
     //MARK: Gets student location
-    class func getStudentsLocations(completionHandler: @escaping (Bool, Error?) -> Void){
-        
-        
+    class func getStudentsLocations(completionHandler: @escaping ([StudentLocation], Error?) -> Void){
         let dataTask = URLSession.shared.dataTask(with: Endpoints.getStudentsLocation.url) { data, response, error in
            
             guard let data = data else{
-                completionHandler(false, error)
+                completionHandler([], error)
                 return
             }
             if error != nil {
@@ -42,36 +41,18 @@ class ONTMClient {
            }
             do{
                 let decoder = JSONDecoder()
-                
                 let responseObject = try decoder.decode(StudentLocation.self, from: data)
-                //loop for array arround the responseObject
-                print(responseObject.results)
-                for items in responseObject.results{
-                    print(items.objectID)
-                }
+                completionHandler([responseObject.results],nil)
                 
-//                let responseObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:AnyObject]
-//                if let results = responseObject?["results"] as? [[String:AnyObject]]{
-//
-//                    if results.count > 0{
-//                        for item in results{
-//                            print(item["firstName"])
-//                        }
-//                        completionHandler(true,nil)
-//                    }
-//                }else{
-//                    completionHandler(false,error)
-//                    print(error)
-//                    return
-//                }
             }catch{
-                completionHandler(false,error)
+                completionHandler([],error)
                 print(error)
             }
         }
         dataTask.resume()
         
     }
+    
      //MARK: post a student location on map
     class func postStudentLocation(firstName: String, lastName:String, country: String, linkedInString: String, xAxis: Double, yAxis:Double, completionHandler: @escaping (Bool, Error?) -> Void){
 
@@ -79,7 +60,7 @@ class ONTMClient {
         var request = URLRequest(url: URL(string: Endpoints.base)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        // need to convert this to dictionary
+        
         let userInput = ["uniqueKey": SessionResponse.sessionInstance?.account.key,"firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
         do{
             let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)
@@ -103,20 +84,22 @@ class ONTMClient {
             do{
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(PostLocationResponse.self, from: data)
-                print(responseObject)
+                PostLocationResponse.postLocationInstance?.objectID = responseObject.objectID
+                print(responseObject.objectID)
                 completionHandler(true,nil)
             }catch{
                 completionHandler(false,error)
             }
-            
-            
             print(String(data: data, encoding: .utf8)!)
         }
         dataTask.resume()
     }
-    
+    // check if it not required
     class func putStudentLocation(firstName: String, lastName:String, country: String, linkedInString: String, xAxis: Double, yAxis:Double, completionHandler: @escaping (Bool, Error?) -> Void){
-        var request = URLRequest(url: Endpoints.puttingStudentLocation("bm7shks74d6btkc0vslg").url)
+        guard let objectID = PostLocationResponse.postLocationInstance?.objectID else{
+            return
+        }
+        var request = URLRequest(url: Endpoints.puttingStudentLocation( (objectID)).url)
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let userInput = ["firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
@@ -136,7 +119,21 @@ class ONTMClient {
             if error != nil{
                 return
             }
-           print(String(data: data!, encoding: .utf8)!)
+            guard let data = data else{
+                completionHandler(false, error)
+                return
+            }
+            do{
+                let decoder = JSONDecoder()
+                //algo anda mal con el json que no encuentra los keys
+                let responseObject = try decoder.decode(PutStudentLocationResponse.self, from: data)
+                print(responseObject)
+                print("bananas")
+                completionHandler(true, nil)
+            }catch{
+                completionHandler(false,error)
+            }
+           print(String(data: data, encoding: .utf8)!)
         }
         dataTask.resume()
     }
