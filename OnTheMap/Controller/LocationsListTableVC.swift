@@ -15,8 +15,10 @@ class LocationsListTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = ONTMClient.getStudentsLocations(completionHandler: { (location, error) in
-            LocationsData.locations = location
-            self.tableView.reloadData()
+             LocationsData.locations = location
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         })
     
     }
@@ -45,8 +47,10 @@ class LocationsListTableVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
             
         let locationData = LocationsData.locations[indexPath.row]
-        cell.textLabel?.text = locationData.results.
-         Configure the cell...
+        print(locationData.firstName)
+        cell.textLabel?.text = locationData.firstName + " " + locationData.lastName
+        cell.detailTextLabel?.text = locationData.mediaURL
+        
 
         return cell
     }

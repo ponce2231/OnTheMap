@@ -14,8 +14,7 @@ class MapVC: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        ONTMClient.getStudentsLocations(completionHandler: getLocationHandler(success:error:))
-        
+//        ONTMClient.getStudentsLocations()
         ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
         ONTMClient.putStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: putLocationHandler(success:error:))
          
@@ -36,11 +35,11 @@ class MapVC: UIViewController, MKMapViewDelegate{
             print(error?.localizedDescription)
         }
     }
-    func getLocationHandler(success:Bool, error: Error?) {
-        if success{
-            print("got locations")
-        }else{
-            print(error?.localizedDescription)
-        }
-    }
+//    func getLocationHandler(, error: Error?) {
+//        if success{
+//            print("got locations")
+//        }else{
+//            print(error?.localizedDescription)
+//        }
+//    }
 }

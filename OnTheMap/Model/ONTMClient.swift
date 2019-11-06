@@ -29,7 +29,7 @@ class ONTMClient {
     }
     
     //MARK: Gets student location
-    class func getStudentsLocations(completionHandler: @escaping ([StudentLocation], Error?) -> Void){
+    class func getStudentsLocations(completionHandler: @escaping ([Result], Error?) -> Void){
         let dataTask = URLSession.shared.dataTask(with: Endpoints.getStudentsLocation.url) { data, response, error in
            
             guard let data = data else{
@@ -42,7 +42,10 @@ class ONTMClient {
             do{
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(StudentLocation.self, from: data)
-                completionHandler([responseObject.results],nil)
+                LocationsData.locations = responseObject.results
+                
+        
+                completionHandler(LocationsData.locations,nil)
                 
             }catch{
                 completionHandler([],error)

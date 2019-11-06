@@ -9,5 +9,5 @@
 import Foundation
 
 class LocationsData {
-    static var locations = [StudentLocation]()
+    static var locations = [Result]()
 }

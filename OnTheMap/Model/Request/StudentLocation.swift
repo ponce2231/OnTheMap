@@ -10,7 +10,8 @@ import Foundation
 
 // MARK: - StudentLocation
 struct StudentLocation: Codable {
-    let results: [Result]
+    var results: [Result]
+    static var dataLocations:StudentLocation?
 }
 
 // MARK: - Result
