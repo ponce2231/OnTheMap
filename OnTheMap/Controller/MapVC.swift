@@ -17,6 +17,10 @@ class MapVC: UIViewController, MKMapViewDelegate{
         super.viewDidLoad()
         getLocationsOnMap()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getLocationsOnMap()
+    }
     
     @IBAction func refreshPressed(_ sender: Any) {
         getLocationsOnMap()
