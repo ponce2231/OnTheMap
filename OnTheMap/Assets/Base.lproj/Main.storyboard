@@ -142,7 +142,11 @@
                                     <segue destination="PjE-y9-vlg" kind="show" id="KXz-ar-6jC"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="refresh" image="icon_refresh" id="CmS-lJ-H8m"/>
+                            <barButtonItem title="refresh" image="icon_refresh" id="CmS-lJ-H8m">
+                                <connections>
+                                    <action selector="refreshPressed:" destination="cwf-7F-xk2" id="082-g3-Ivu"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -251,7 +255,7 @@
                 <navigationController modalPresentationStyle="overFullScreen" id="dIi-xJ-FqC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="icon_listview-deselected" id="dct-Yb-2hO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0sW-Q8-tPf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -360,7 +364,7 @@
                     <tabBarItem key="tabBarItem" title="Item" image="icon_mapview-deselected" id="JVK-qK-xR3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nAk-nE-Svp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

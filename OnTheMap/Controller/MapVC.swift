@@ -15,8 +15,15 @@ class MapVC: UIViewController, MKMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ONTMClient.getStudentsLocations { (locations, error) in
+        getLocationsOnMap()
+    }
+    
+    @IBAction func refreshPressed(_ sender: Any) {
+        getLocationsOnMap()
+    }
+    //MARK: -get the location of the students and mark its possition(pin)
+    func getLocationsOnMap() {
+                ONTMClient.getStudentsLocations { (locations, error) in
              LocationsData.locations = locations
             var annotations = [MKPointAnnotation]()
             
@@ -39,11 +46,9 @@ class MapVC: UIViewController, MKMapViewDelegate{
                 
             }
             self.mapView.addAnnotations(annotations)
-            dump(annotations)
         }
     }
-    
-//MARK: -Delegate Functions
+    //MARK: -Delegate Functions
     // Here we create a view with a "right callout accessory view". You might choose to look into other
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
     // method in TableViewDataSource.
