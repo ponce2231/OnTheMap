@@ -128,8 +128,8 @@
 			children = (
 				1E71C7092329BCFF0034A1E6 /* LogInVC.swift */,
 				1E4E6F0F23402A0400CE19AC /* LocationsListTableVC.swift */,
-				1E4E6F1123402AB400CE19AC /* AddLocationVC.swift */,
 				1E4E6F1323402B1E00CE19AC /* MapVC.swift */,
+				1E4E6F1123402AB400CE19AC /* AddLocationVC.swift */,
 				1E549CD12374C7F30031FB46 /* SubmitLocationVC.swift */,
 			);
 			path = Controller;

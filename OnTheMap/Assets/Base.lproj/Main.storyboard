@@ -220,16 +220,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hx3-3E-gG4">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hx3-3E-gG4">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <connections>
+                                    <outlet property="delegate" destination="LbN-1V-eH6" id="g9Q-QR-AnJ"/>
+                                </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEF-nz-VxA">
-                                <rect key="frame" x="16" y="388" width="288" height="33"/>
+                                <rect key="frame" x="16" y="339" width="288" height="33"/>
                                 <color key="backgroundColor" red="0.0" green="0.7579990029" blue="0.91987031699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="finishButtonPressed:" destination="LbN-1V-eH6" eventType="touchUpInside" id="Vqj-QP-cow"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -237,13 +243,17 @@
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="bottom" secondItem="DEF-nz-VxA" secondAttribute="bottom" constant="59" id="10k-S5-4ij"/>
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="trailing" secondItem="DEF-nz-VxA" secondAttribute="trailing" constant="16" id="9OC-yJ-oRg"/>
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="trailing" secondItem="hx3-3E-gG4" secondAttribute="trailing" id="9uT-bI-cuX"/>
-                            <constraint firstItem="hx3-3E-gG4" firstAttribute="top" secondItem="gWm-pg-Fjc" secondAttribute="top" id="LF0-Cy-0zK"/>
-                            <constraint firstItem="gWm-pg-Fjc" firstAttribute="bottom" secondItem="hx3-3E-gG4" secondAttribute="bottom" id="Unt-Kb-spY"/>
+                            <constraint firstItem="hx3-3E-gG4" firstAttribute="top" secondItem="gWm-pg-Fjc" secondAttribute="top" id="LFE-i0-nbN"/>
                             <constraint firstItem="hx3-3E-gG4" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" id="erb-az-fXM"/>
                             <constraint firstItem="DEF-nz-VxA" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" constant="16" id="u1K-V5-FzS"/>
+                            <constraint firstAttribute="bottom" secondItem="hx3-3E-gG4" secondAttribute="bottom" id="wJj-wT-Lfp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gWm-pg-Fjc"/>
                     </view>
+                    <navigationItem key="navigationItem" id="v52-qK-c4W"/>
+                    <connections>
+                        <outlet property="mapView" destination="hx3-3E-gG4" id="cXN-M0-8nT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfg-Rr-Mpc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,6 +324,9 @@
                                         <state key="normal" title="Find Location">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="findLocationButtonPressed:" destination="PjE-y9-vlg" eventType="touchUpInside" id="AHS-ij-SuM"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -332,6 +345,11 @@
                         <viewLayoutGuide key="safeArea" id="cXh-vS-u2l"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Location" largeTitleDisplayMode="never" id="Tlk-aD-FNX"/>
+                    <connections>
+                        <outlet property="enterLocationTextField" destination="1NO-0i-dM9" id="vhy-oE-oWn"/>
+                        <outlet property="enterSiteTextField" destination="N0f-pN-YNv" id="F7D-un-s0e"/>
+                        <segue destination="LbN-1V-eH6" kind="show" identifier="passDataSegue" id="A3c-ol-6WE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztC-gI-rB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

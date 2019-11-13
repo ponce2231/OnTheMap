@@ -11,18 +11,21 @@ import UIKit
 class LocationsListTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        getLocationsOnTable()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getLocationsOnTable()
+    }
+    
+    func getLocationsOnTable(){
         _ = ONTMClient.getStudentsLocations(completionHandler: { (location, error) in
              LocationsData.locations = location
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         })
-    
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         self.tableView.reloadData()
     }
 
