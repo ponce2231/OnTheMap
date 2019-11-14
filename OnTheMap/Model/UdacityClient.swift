@@ -52,7 +52,7 @@ class UdacityClient {
                 //MARK: parsing json
                 let decoder = JSONDecoder()
                 let sessionResponse = try decoder.decode(SessionResponse.self, from: newData)
-                
+                dump(sessionResponse.account)
                 SessionResponse.sessionInstance = sessionResponse
                 //MARK: Account Validation
                 if sessionResponse.account.registered{
@@ -60,11 +60,16 @@ class UdacityClient {
                         completionHandler(true,nil)
                     }
                 }else{
-                    completionHandler(false,error)
+                    DispatchQueue.main.async {
+                          completionHandler(false, error)
+                    }
                 }
             }catch{
-                completionHandler(false, error)
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                      completionHandler(false, error)
+                      print(error.localizedDescription)
+                }
+              
             }
         }
         task.resume()

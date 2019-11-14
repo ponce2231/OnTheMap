@@ -18,7 +18,7 @@ class ONTMClient {
         
         var urlString:String {
             switch self {
-            case .getStudentsLocation: return Endpoints.base + "?limit=100"
+            case .getStudentsLocation: return Endpoints.base + "?limit=100" + "&order=-updatedAt"
             case .puttingStudentLocation(let objectId): return Endpoints.base + "/\(objectId)"
             }
 
@@ -42,6 +42,7 @@ class ONTMClient {
             do{
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(StudentLocation.self, from: data)
+                dump(responseObject)
                 LocationsData.locations = responseObject.results
                 completionHandler(LocationsData.locations,nil)
                 
@@ -61,10 +62,10 @@ class ONTMClient {
         var request = URLRequest(url: URL(string: Endpoints.base)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let results = StudentLocation.dataLocations?.results else {
-            
-            return
-        }
+//        guard let results = StudentLocation.dataLocations?.results else {
+//            
+//            return
+//        }
         let userInput = ["uniqueKey": SessionResponse.sessionInstance?.account.key,"firstName":firstName, "lastName": lastName, "mapString": country, "mediaURL": linkedInString,"latitude": xAxis, "longitude": yAxis] as [String:AnyObject]
         do{
             let body = try JSONSerialization.data(withJSONObject: userInput, options: .prettyPrinted)

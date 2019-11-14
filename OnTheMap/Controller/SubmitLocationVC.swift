@@ -37,7 +37,7 @@ class SubmitLocationVC: UIViewController, MKMapViewDelegate{
                 self.annotation.title = self.locationString
                 self.annotation.subtitle = self.siteString
                 self.mapView.addAnnotation(self.annotation)
-           
+                
             }
             else{
                 print(error?.localizedDescription)
@@ -48,7 +48,7 @@ class SubmitLocationVC: UIViewController, MKMapViewDelegate{
     }
     
     @IBAction func finishButtonPressed(_ sender: Any) {
-        ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: self.locationString! , linkedInString: siteString!, xAxis: annotation.coordinate.latitude, yAxis: annotation.coordinate.longitude, completionHandler: postLocationHandler(success:error:))
+        ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: self.locationString! , linkedInString: siteString!, xAxis: self.annotation.coordinate.latitude, yAxis: self.annotation.coordinate.longitude, completionHandler: postLocationHandler(success:error:))
     }
     
     func postLocationHandler(success: Bool, error: Error?){
