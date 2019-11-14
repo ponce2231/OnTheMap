@@ -9,58 +9,54 @@
 import UIKit
 import MapKit
 
-class SubmitLocationVC: UIViewController,MKMapViewDelegate  {
+class SubmitLocationVC: UIViewController, MKMapViewDelegate{
 
     @IBOutlet weak var mapView: MKMapView!
     
     var locationString: String?
     var siteString: String?
-    
+     let annotation = MKPointAnnotation()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let savedLocationString = locationString
-        let savedSiteString = siteString
-        print(savedLocationString ?? "banana")
+
         var region = MKCoordinateRegion()
         region.center = CLLocationCoordinate2D(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
         let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = savedLocationString
+        searchRequest.naturalLanguageQuery = locationString
         searchRequest.region = region
         let search = MKLocalSearch(request: searchRequest)
-        let annotation = MKPointAnnotation()
-        
+
         search.start { (response, error) in
             //check error is nil
-            guard let error = error else{
+            if error != nil{
                 return
             }
             //if its not check your response (count)
             if (response?.mapItems.count) != 0 {
-                annotation.coordinate = region.center
-                annotation.title = self.locationString
-                self.mapView.addAnnotation(annotation)
-                print(response?.mapItems[0].placemark)
-            }else{
-                print(error.localizedDescription)
+                self.annotation.coordinate = CLLocationCoordinate2D(latitude: (response?.mapItems[0].placemark.coordinate.latitude)!, longitude: (response?.mapItems[0].placemark.coordinate.longitude)!)
+                self.annotation.title = self.locationString
+                self.annotation.subtitle = self.siteString
+                self.mapView.addAnnotation(self.annotation)
+           
             }
-            // if != 0 i will have items to show
-            
-            print(response?.mapItems[0].placemark)
+            else{
+                print(error?.localizedDescription)
+            }
 
         }
-        
-
-        //        ONTMClient.putStudentLocation(firstName: "chris", lastName: "po", country: "moscow, russia", linkedInString: "www.udacity.com", xAxis: 55.634649, yAxis: 37.526635, completionHandler: putLocationHandler(success:error:))
-        // Do any additional setup after loading the view.
+            
     }
     
-    
     @IBAction func finishButtonPressed(_ sender: Any) {
-        ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: self.locationString! , linkedInString: siteString!, xAxis: 55.634649, yAxis: 37.526635, completionHandler: postLocationHandler(success:error:))
+        ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: self.locationString! , linkedInString: siteString!, xAxis: annotation.coordinate.latitude, yAxis: annotation.coordinate.longitude, completionHandler: postLocationHandler(success:error:))
     }
     
     func postLocationHandler(success: Bool, error: Error?){
-        
+        if success{
+            print("Post was a success")
+        }else{
+            print(error?.localizedDescription)
+        }
     }
     
     //MARK: -Delegate functions

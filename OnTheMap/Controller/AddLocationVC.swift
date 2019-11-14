@@ -17,20 +17,16 @@ class AddLocationVC: UIViewController {
 
 
     }
-    /*
-     pasar la localizacion y el url de esta pantalla a submitLocationVC
-     en submit location vc llamar la funcion de postStudentlocation
-     verificar que el url se pueda abrir en safari 
-    */
+ 
     @IBAction func findLocationButtonPressed(_ sender: Any) {
-        let submitLocationVC = self.storyboard?.instantiateViewController(withIdentifier: "SubmitLocationVC") as! SubmitLocationVC
+
+        performSegue(withIdentifier: "passDataSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let submitLocationVC = segue.destination as! SubmitLocationVC
         submitLocationVC.locationString = enterLocationTextField.text
         submitLocationVC.siteString = enterSiteTextField.text
-        performSegue(withIdentifier: "passDataSegue", sender: nil)
-
-        
-      
-        
     }
     
 }
