@@ -44,10 +44,16 @@ class ONTMClient {
                 let responseObject = try decoder.decode(StudentLocation.self, from: data)
                 dump(responseObject)
                 LocationsData.locations = responseObject.results
-                completionHandler(LocationsData.locations,nil)
+                DispatchQueue.main.async {
+                    completionHandler(LocationsData.locations,nil)
+                }
+               
                 
             }catch{
-                completionHandler([],error)
+                DispatchQueue.main.async {
+                    completionHandler([],error)
+                }
+                
                 print(error)
             }
         }

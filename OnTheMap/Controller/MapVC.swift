@@ -15,19 +15,16 @@ class MapVC: UIViewController, MKMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getLocationsOnMap()
+       
+            self.getLocationsOnMap()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getLocationsOnMap()
-    }
-    
+        
     @IBAction func refreshPressed(_ sender: Any) {
-        getLocationsOnMap()
+            self.getLocationsOnMap()
     }
     //MARK: -get the location of the students and mark its possition(pin)
     func getLocationsOnMap() {
-                ONTMClient.getStudentsLocations { (locations, error) in
+            ONTMClient.getStudentsLocations { (locations, error) in
              LocationsData.locations = locations
             var annotations = [MKPointAnnotation]()
             
