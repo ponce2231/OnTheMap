@@ -22,36 +22,38 @@ class LogInVC: UIViewController {
         passwordTextField.text = ""
     }
     
-
+    // login
     @IBAction func loginTapped(_ sender: Any) {
         setLoggingIn(true)
         UdacityClient.postLoginSession(userName: emailTextField.text ?? "", password: passwordTextField.text ?? "",completionHandler: handleLogin(success:error:))
     }
+    //sends you to the register page
     @IBAction func signUpTapped(_ sender: Any) {
         let url = "https://auth.udacity.com/sign-up?next=https://classroom.udacity.com/authenticated"
         let signUp = UIApplication.shared
         signUp.open(URL(string: url)!)
         
     }
-    
+    //MARK:-handles the login
     func handleLogin(success:Bool, error:Error?){
         setLoggingIn(false)
         if success{
             performSegue(withIdentifier: "completeLogin", sender: nil)
             
         }else{
-        
-            self.showLoginFailure(message: error?.localizedDescription ?? "" )
+            
+            self.showLoginFailure(message: "")
                 
         }
     }
-    //MARK: Shows alert when credentials are not correct
+    //MARK: -Shows alert when credentials are not correct
     func showLoginFailure(message: String) {
         let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         show(alertVC, sender: nil)
     }
     
+    // MARK:-sets the activity view
     func setLoggingIn(_ loggingIn: Bool) {
         if loggingIn {
             activityIndicator.startAnimating()

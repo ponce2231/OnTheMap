@@ -19,8 +19,17 @@ class AddLocationVC: UIViewController {
     }
  
     @IBAction func findLocationButtonPressed(_ sender: Any) {
-
-        performSegue(withIdentifier: "passDataSegue", sender: nil)
+        if enterLocationTextField.text == "" || enterSiteTextField.text == ""{
+            emptyTextAlert(message: "The location or the site text fields are empty")
+        }else{
+            performSegue(withIdentifier: "passDataSegue", sender: nil)
+        }
+        
+    }
+    func emptyTextAlert(message: String) {
+        let textAletVC = UIAlertController(title: "Error Message", message: message, preferredStyle: .alert)
+        textAletVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        show(textAletVC, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -29,4 +38,7 @@ class AddLocationVC: UIViewController {
         submitLocationVC.siteString = enterSiteTextField.text
     }
     
+    @IBAction func cancelWasPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

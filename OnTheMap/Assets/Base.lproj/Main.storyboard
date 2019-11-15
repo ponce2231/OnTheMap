@@ -58,11 +58,11 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleAspectFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rb3-RG-DWi">
+                            <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalCentering" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rb3-RG-DWi">
                                 <rect key="frame" x="50" y="371" width="220" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37T-sB-ybq">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="21"/>
+                                        <rect key="frame" x="0.0" y="1" width="170" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -154,7 +154,7 @@
                         <rightBarButtonItems>
                             <barButtonItem image="icon_addpin" id="9nT-LV-cED">
                                 <connections>
-                                    <segue destination="PjE-y9-vlg" kind="show" id="KXz-ar-6jC"/>
+                                    <segue destination="PjE-y9-vlg" kind="presentation" id="KXz-ar-6jC"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="refresh" image="icon_refresh" id="CmS-lJ-H8m">
@@ -216,7 +216,7 @@
                         <rightBarButtonItems>
                             <barButtonItem image="icon_addpin" id="lO2-NM-Qkf">
                                 <connections>
-                                    <segue destination="PjE-y9-vlg" kind="show" id="T0X-dR-hOR"/>
+                                    <segue destination="PjE-y9-vlg" kind="presentation" id="T0X-dR-hOR"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="Q6x-ne-sUm"/>
@@ -230,19 +230,31 @@
         <!--Submit LocationVC-->
         <scene sceneID="JGc-SN-f1b">
             <objects>
-                <viewController storyboardIdentifier="SubmitLocationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LbN-1V-eH6" customClass="SubmitLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SubmitLocationVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LbN-1V-eH6" customClass="SubmitLocationVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C58-N8-p6f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hx3-3E-gG4">
-                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <connections>
                                     <outlet property="delegate" destination="LbN-1V-eH6" id="g9Q-QR-AnJ"/>
                                 </connections>
                             </mapView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGU-bO-MMi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Submit Location" id="I24-bP-xH7">
+                                        <barButtonItem key="leftBarButtonItem" image="icon_back-arrow" id="86h-XF-IKI">
+                                            <connections>
+                                                <action selector="backButtonPressed:" destination="LbN-1V-eH6" id="eDA-VI-Ad0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEF-nz-VxA">
-                                <rect key="frame" x="16" y="339" width="288" height="33"/>
+                                <rect key="frame" x="16" y="388" width="288" height="33"/>
                                 <color key="backgroundColor" red="0.0" green="0.7579990029" blue="0.91987031699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="FINISH">
@@ -252,21 +264,32 @@
                                     <action selector="finishButtonPressed:" destination="LbN-1V-eH6" eventType="touchUpInside" id="Vqj-QP-cow"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ltD-GP-ZaS">
+                                <rect key="frame" x="150" y="244" width="20" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="bottom" secondItem="DEF-nz-VxA" secondAttribute="bottom" constant="59" id="10k-S5-4ij"/>
+                            <constraint firstItem="gWm-pg-Fjc" firstAttribute="trailing" secondItem="ltD-GP-ZaS" secondAttribute="trailing" constant="150" id="2FA-aN-IB3"/>
+                            <constraint firstItem="ltD-GP-ZaS" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" constant="150" id="7Os-jD-Dl7"/>
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="trailing" secondItem="DEF-nz-VxA" secondAttribute="trailing" constant="16" id="9OC-yJ-oRg"/>
                             <constraint firstItem="gWm-pg-Fjc" firstAttribute="trailing" secondItem="hx3-3E-gG4" secondAttribute="trailing" id="9uT-bI-cuX"/>
+                            <constraint firstItem="cGU-bO-MMi" firstAttribute="trailing" secondItem="gWm-pg-Fjc" secondAttribute="trailing" id="EGt-ZP-oFD"/>
+                            <constraint firstItem="DEF-nz-VxA" firstAttribute="top" secondItem="ltD-GP-ZaS" secondAttribute="bottom" constant="107" id="GMu-d8-LiI"/>
                             <constraint firstItem="hx3-3E-gG4" firstAttribute="top" secondItem="gWm-pg-Fjc" secondAttribute="top" id="LFE-i0-nbN"/>
                             <constraint firstItem="hx3-3E-gG4" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" id="erb-az-fXM"/>
+                            <constraint firstItem="cGU-bO-MMi" firstAttribute="top" secondItem="gWm-pg-Fjc" secondAttribute="top" id="i0s-wu-s3X"/>
                             <constraint firstItem="DEF-nz-VxA" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" constant="16" id="u1K-V5-FzS"/>
                             <constraint firstAttribute="bottom" secondItem="hx3-3E-gG4" secondAttribute="bottom" id="wJj-wT-Lfp"/>
+                            <constraint firstItem="cGU-bO-MMi" firstAttribute="leading" secondItem="gWm-pg-Fjc" secondAttribute="leading" id="ywa-Zu-S7P"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gWm-pg-Fjc"/>
                     </view>
                     <navigationItem key="navigationItem" id="v52-qK-c4W"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="ltD-GP-ZaS" id="QQd-hF-gxl"/>
+                        <outlet property="finishButton" destination="DEF-nz-VxA" id="PWy-MT-3sf"/>
                         <outlet property="mapView" destination="hx3-3E-gG4" id="cXN-M0-8nT"/>
                     </connections>
                 </viewController>
@@ -299,8 +322,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IC8-tW-9a5">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Add Location" leftItemsSupplementBackButton="YES" id="uek-97-Uyq">
+                                        <barButtonItem key="leftBarButtonItem" title="CANCEL" id="lZv-3P-WFa">
+                                            <connections>
+                                                <action selector="cancelWasPressed:" destination="PjE-y9-vlg" id="fKM-pL-asv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="mAA-6f-HXk">
-                                <rect key="frame" x="90" y="54" width="140" height="97"/>
+                                <rect key="frame" x="91" y="63" width="140" height="97"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="R6D-2G-etm"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="97" id="k5A-Rg-WOG"/>
@@ -309,7 +344,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="lrE-nh-1vL">
-                                <rect key="frame" x="66.5" y="188" width="187" height="142"/>
+                                <rect key="frame" x="66.5" y="193" width="187" height="142"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1NO-0i-dM9">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="34"/>
@@ -349,13 +384,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="lrE-nh-1vL" firstAttribute="leading" secondItem="cXh-vS-u2l" secondAttribute="leading" constant="66.5" id="6gI-Fz-3AG"/>
-                            <constraint firstItem="mAA-6f-HXk" firstAttribute="leading" secondItem="cXh-vS-u2l" secondAttribute="leading" constant="90" id="87g-sf-Jcn"/>
-                            <constraint firstItem="cXh-vS-u2l" firstAttribute="trailing" secondItem="mAA-6f-HXk" secondAttribute="trailing" constant="90" id="Jwo-rl-Skv"/>
-                            <constraint firstItem="mAA-6f-HXk" firstAttribute="top" secondItem="cXh-vS-u2l" secondAttribute="top" constant="10" id="Mhf-0z-GK1"/>
+                            <constraint firstItem="mAA-6f-HXk" firstAttribute="leading" secondItem="cXh-vS-u2l" secondAttribute="leading" constant="91" id="87g-sf-Jcn"/>
+                            <constraint firstItem="IC8-tW-9a5" firstAttribute="top" secondItem="cXh-vS-u2l" secondAttribute="top" id="CQ7-Ct-3Fp"/>
+                            <constraint firstItem="cXh-vS-u2l" firstAttribute="trailing" secondItem="mAA-6f-HXk" secondAttribute="trailing" constant="89" id="Jwo-rl-Skv"/>
                             <constraint firstItem="lrE-nh-1vL" firstAttribute="centerX" secondItem="Q09-HM-nyY" secondAttribute="centerX" id="bA0-sq-x2j"/>
-                            <constraint firstItem="mAA-6f-HXk" firstAttribute="centerX" secondItem="Q09-HM-nyY" secondAttribute="centerX" id="cnj-pw-bCF"/>
+                            <constraint firstItem="mAA-6f-HXk" firstAttribute="centerX" secondItem="Q09-HM-nyY" secondAttribute="centerX" constant="1" id="cnj-pw-bCF"/>
                             <constraint firstItem="cXh-vS-u2l" firstAttribute="trailing" secondItem="lrE-nh-1vL" secondAttribute="trailing" constant="66.5" id="e3A-5J-zYP"/>
-                            <constraint firstItem="lrE-nh-1vL" firstAttribute="top" secondItem="mAA-6f-HXk" secondAttribute="bottom" constant="37" id="eZh-qt-dR1"/>
+                            <constraint firstItem="lrE-nh-1vL" firstAttribute="top" secondItem="mAA-6f-HXk" secondAttribute="bottom" constant="33" id="eZh-qt-dR1"/>
+                            <constraint firstItem="IC8-tW-9a5" firstAttribute="leading" secondItem="cXh-vS-u2l" secondAttribute="leading" id="gqP-0p-r0B"/>
+                            <constraint firstItem="mAA-6f-HXk" firstAttribute="top" secondItem="IC8-tW-9a5" secondAttribute="bottom" constant="19" id="kJG-zN-eE8"/>
+                            <constraint firstItem="IC8-tW-9a5" firstAttribute="trailing" secondItem="cXh-vS-u2l" secondAttribute="trailing" id="wU1-q4-8WN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cXh-vS-u2l"/>
                     </view>
@@ -363,7 +401,7 @@
                     <connections>
                         <outlet property="enterLocationTextField" destination="1NO-0i-dM9" id="vhy-oE-oWn"/>
                         <outlet property="enterSiteTextField" destination="N0f-pN-YNv" id="F7D-un-s0e"/>
-                        <segue destination="LbN-1V-eH6" kind="show" identifier="passDataSegue" id="A3c-ol-6WE"/>
+                        <segue destination="LbN-1V-eH6" kind="presentation" identifier="passDataSegue" id="A3c-ol-6WE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztC-gI-rB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -412,6 +450,7 @@
     </scenes>
     <resources>
         <image name="icon_addpin" width="24" height="24"/>
+        <image name="icon_back-arrow" width="24" height="24"/>
         <image name="icon_listview-deselected" width="75" height="50"/>
         <image name="icon_mapview-deselected" width="75" height="50"/>
         <image name="icon_refresh" width="24" height="24"/>
@@ -419,6 +458,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KXz-ar-6jC"/>
+        <segue reference="T0X-dR-hOR"/>
     </inferredMetricsTieBreakers>
 </document>

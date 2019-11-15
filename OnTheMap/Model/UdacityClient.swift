@@ -42,6 +42,11 @@ class UdacityClient {
         }
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
+            if error != nil{
+                print(error?.localizedDescription)
+                print("bananas")
+                return
+            }
             guard let data = data else{
                 
                 return
@@ -61,13 +66,17 @@ class UdacityClient {
                     }
                 }else{
                     DispatchQueue.main.async {
-                          completionHandler(false, error)
+                        
+                        completionHandler(false, error)
+                        print(error?.localizedDescription)
+                        print("hamburguer")
                     }
                 }
             }catch{
                 DispatchQueue.main.async {
                       completionHandler(false, error)
                       print(error.localizedDescription)
+                    print("yogurt")
                 }
               
             }
@@ -106,26 +115,5 @@ class UdacityClient {
         task.resume()
     }
     
-    class func getPublicUserData(completionHandler: @escaping (Bool, Error?) -> Void){
-                                                                                            //<userId = 3903878747>
-        let request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/users/3903878747")!)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-          if error != nil { // Handle error...
-              return
-          }
-            guard let data = data else{
-                completionHandler(false, error)
-                return
-                
-            }
-            //Range(5..<data!.count)
-          let range = (5..<data.count)
-          let newData = data.subdata(in: range) /* subset response data! */
-            
-          print(String(data: newData, encoding: .utf8)!)
-        }
-        task.resume()
-    }
     
 }
