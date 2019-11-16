@@ -14,7 +14,7 @@ class AddLocationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
 
     }
  
@@ -42,3 +42,4 @@ class AddLocationVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+

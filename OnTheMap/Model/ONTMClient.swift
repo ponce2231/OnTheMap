@@ -93,9 +93,15 @@ class ONTMClient {
                 let decoder = JSONDecoder()
                 let responseObject = try decoder.decode(PostLocationResponse.self, from: data)
                 PostLocationResponse.postLocationInstance?.objectID = responseObject.objectID
-                completionHandler(true,nil)
+                DispatchQueue.main.async {
+                    completionHandler(true,nil)
+                }
+                
             }catch{
-                completionHandler(false,error)
+                DispatchQueue.main.async {
+                    completionHandler(false,error)
+                }
+                
             }
             print(String(data: data, encoding: .utf8)!)
         }

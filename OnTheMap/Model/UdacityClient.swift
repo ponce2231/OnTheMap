@@ -57,7 +57,6 @@ class UdacityClient {
                 //MARK: parsing json
                 let decoder = JSONDecoder()
                 let sessionResponse = try decoder.decode(SessionResponse.self, from: newData)
-                dump(sessionResponse.account)
                 SessionResponse.sessionInstance = sessionResponse
                 //MARK: Account Validation
                 if sessionResponse.account.registered{
@@ -84,8 +83,8 @@ class UdacityClient {
         task.resume()
     }
     
-    class func deleteSession(){
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+    class func deleteSession(completionHandler: @escaping (Bool,Error?) -> Void){
+        var request = URLRequest(url: Endpoints.login.url)
         request.httpMethod = "DELETE"
         
         var xsrfCookie: HTTPCookie? = nil
@@ -107,10 +106,21 @@ class UdacityClient {
           if error != nil { // Handle error…
               return
           }
+            guard let data = data else{
+                return
+            }
             //Range(5..<data!.count)
-          let range = (5..<data!.count)
-          let newData = data?.subdata(in: range) /* subset response data! */
-          print(String(data: newData!, encoding: .utf8)!)
+          let range = (5..<data.count)
+          let newData = data.subdata(in: range) /* subset response data! */
+            do{
+                let decoder = JSONDecoder()
+                var responseObject = try decoder.decode(SessionResponse.self, from: newData)
+                responseObject.session.id = ""
+                completionHandler(true,nil)
+            }catch{
+                completionHandler(false, error)
+            }
+          print(String(data: newData, encoding: .utf8)!)
         }
         task.resume()
     }

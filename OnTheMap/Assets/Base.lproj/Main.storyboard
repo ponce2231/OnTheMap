@@ -33,6 +33,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="l72-kY-Euo"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOe-iY-BHU">
                                         <rect key="frame" x="0.0" y="54" width="232" height="34"/>
@@ -41,6 +44,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="EA3-tH-H7O"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZT-sm-lvb">
                                         <rect key="frame" x="0.0" y="108" width="232" height="35"/>
@@ -150,7 +156,11 @@
                         <viewLayoutGuide key="safeArea" id="Y2c-Tv-LIR"/>
                     </view>
                     <navigationItem key="navigationItem" id="qN8-sQ-Uk9">
-                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="b0i-oz-NKn"/>
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="b0i-oz-NKn">
+                            <connections>
+                                <action selector="logoutWasTapped:" destination="cwf-7F-xk2" id="fcG-5h-N3r"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_addpin" id="9nT-LV-cED">
                                 <connections>
@@ -165,6 +175,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="logoutWasTapped" destination="b0i-oz-NKn" id="2Cg-iO-rK6"/>
                         <outlet property="mapView" destination="o6D-Gw-Jff" id="Bqk-BX-yjJ"/>
                     </connections>
                 </viewController>
@@ -212,14 +223,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="fcS-w5-Shj">
-                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="ZwN-kx-Mwo"/>
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="ZwN-kx-Mwo">
+                            <connections>
+                                <action selector="logoutWasTapped:" destination="GgX-LK-eak" id="pCB-3J-Eer"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_addpin" id="lO2-NM-Qkf">
                                 <connections>
                                     <segue destination="PjE-y9-vlg" kind="presentation" id="T0X-dR-hOR"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="Q6x-ne-sUm"/>
+                            <barButtonItem systemItem="refresh" id="Q6x-ne-sUm">
+                                <connections>
+                                    <action selector="refreshWasTapped:" destination="GgX-LK-eak" id="yUM-UG-K7j"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
@@ -354,6 +373,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" textContentType="location"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="PjE-y9-vlg" id="58A-t5-bHK"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Site" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N0f-pN-YNv">
                                         <rect key="frame" x="0.0" y="56" width="187" height="34"/>
@@ -363,6 +385,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="url"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="PjE-y9-vlg" id="Nnt-wC-GZA"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98a-iz-Ub0">
                                         <rect key="frame" x="0.0" y="112" width="187" height="30"/>
@@ -435,7 +460,7 @@
                     <tabBarItem key="tabBarItem" title="Item" image="icon_mapview-deselected" id="JVK-qK-xR3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nAk-nE-Svp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -458,6 +483,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T0X-dR-hOR"/>
+        <segue reference="KXz-ar-6jC"/>
     </inferredMetricsTieBreakers>
 </document>

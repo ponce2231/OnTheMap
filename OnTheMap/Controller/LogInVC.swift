@@ -42,7 +42,7 @@ class LogInVC: UIViewController {
             
         }else{
             
-            self.showLoginFailure(message: "")
+            self.showLoginFailure(message: error!.localizedDescription)
                 
         }
     }

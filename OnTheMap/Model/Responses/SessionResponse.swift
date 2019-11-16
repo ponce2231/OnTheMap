@@ -12,7 +12,7 @@ import Foundation
 struct SessionResponse: Codable {
     static var sessionInstance: SessionResponse?
     let account: Account
-    let session: Session
+    var session: Session
 }
 
 
@@ -23,7 +23,8 @@ struct Account: Codable {
 
 
 struct Session: Codable {
-    let id, expiration: String
+    var id: String
+    let expiration: String
 }
 
 

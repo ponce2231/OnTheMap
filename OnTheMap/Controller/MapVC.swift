@@ -12,6 +12,7 @@ import MapKit
 class MapVC: UIViewController, MKMapViewDelegate{
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var logoutWasTapped: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,15 @@ class MapVC: UIViewController, MKMapViewDelegate{
             self.mapView.addAnnotations(annotations)
         }
     }
+    @IBAction func logoutWasTapped(_ sender: Any) {
+        UdacityClient.deleteSession {_,_ in
+                DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
     //MARK: -Delegate Functions
     // Here we create a view with a "right callout accessory view". You might choose to look into other
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath

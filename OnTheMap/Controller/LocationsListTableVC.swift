@@ -14,11 +14,26 @@ class LocationsListTableVC: UITableViewController {
         getLocationsOnTable()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    @IBAction func refreshWasTapped(_ sender: Any) {
         getLocationsOnTable()
     }
     
+    @IBAction func logoutWasTapped(_ sender: Any) {
+        UdacityClient.deleteSession {_,_ in
+                DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+
+    }
+    func logoutHandler(success: Bool, error: Error?){
+        if success {
+            print("user has logout")
+        }else{
+            print(error?.localizedDescription)
+        }
+    }
     func getLocationsOnTable(){
         _ = ONTMClient.getStudentsLocations(completionHandler: { (location, error) in
              LocationsData.locations = location
@@ -40,7 +55,15 @@ class LocationsListTableVC: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return LocationsData.locations.count
     }
-// pasar la informacion de los locations a la celda como en the movie manager
+    
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let urlString = LocationsData.locations[indexPath.row]
+    if let url = URL(string: urlString.mediaURL)
+        {
+            UIApplication.shared.open(url)
+        }
+            tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

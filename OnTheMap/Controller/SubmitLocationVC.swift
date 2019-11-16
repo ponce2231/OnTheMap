@@ -58,8 +58,9 @@ class SubmitLocationVC: UIViewController, MKMapViewDelegate{
     func postLocationHandler(success: Bool, error: Error?){
         setLocation(false)
         if success{
-            print("Post was a success")
+            print("Post was a success")            
             self.dismiss(animated: true, completion: nil)
+
         }else{
             self.showLocationAlert(message: error!.localizedDescription)
         }
@@ -73,18 +74,12 @@ class SubmitLocationVC: UIViewController, MKMapViewDelegate{
     
     func setLocation(_ locating: Bool) {
         if locating{
-            DispatchQueue.main.async {
                 self.activityIndicator.startAnimating()
-            }
-            
         }else{
-            DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
-            }
         }
-        DispatchQueue.main.async {
             self.finishButton.isEnabled = !locating
-        }
+        
     }
     @IBAction func finishButtonPressed(_ sender: Any) {
         ONTMClient.postStudentLocation(firstName: "chris", lastName: "po", country: self.locationString! , linkedInString: siteString!, xAxis: self.annotation.coordinate.latitude, yAxis: self.annotation.coordinate.longitude, completionHandler: postLocationHandler(success:error:))
